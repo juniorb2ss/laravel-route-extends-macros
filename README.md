@@ -1,7 +1,7 @@
 # Laravel Macros Extends
 [![Laravel Versions Compatible](https://img.shields.io/badge/laravel-4%7C5-green.svg)](https://laravel.com)
 [![Build Status](https://travis-ci.org/juniorb2ss/laravel-route-extends-macros.svg)](https://travis-ci.org/juniorb2ss/laravel-route-extends-macros)
-[![Total Downloads](https://poser.pugx.org/juniorb2ss/laravel-route-extends-macros/d/total.svg)](https://packagist.org/juniorb2ss/laravel-route-extends-macros)
+[![Total Downloads](https://poser.pugx.org/juniorb2ss/laravel-route-extends-macros/d/total.svg)](https://packagist.org/packages/juniorb2ss/laravel-route-extends-macros)
 [![Latest Stable Version](https://poser.pugx.org/juniorb2ss/laravel-route-extends-macros/v/stable.svg)](https://packagist.org/packages/juniorb2ss/laravel-route-extends-macros)
 [![Latest Unstable Version](https://poser.pugx.org/juniorb2ss/laravel-route-extends-macros/v/unstable.svg)](https://packagist.org/packages/juniorb2ss/laravel-route-extends-macros)
 [![License](https://poser.pugx.org/juniorb2ss/laravel-route-extends-macros/license.svg)](https://packagist.org/packages/juniorb2ss/laravel-route-extends-macros)
