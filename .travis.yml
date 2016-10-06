@@ -6,6 +6,6 @@ php:
 
 sudo: false
 
-install: travis_retry composer install --no-interaction --prefer-dist
+install: travis_wait composer install --no-interaction --prefer-dist
 
 script: vendor/bin/phpunit --verbose
