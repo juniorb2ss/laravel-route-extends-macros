@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Route;
 
 class RouteJsonTest extends TestCase {
 	public function testResponseJsonWithCollection() {
-		$date = collect(['key' => 'value']);
+		$data = collect(['key' => 'value']);
 
-		Route::json('/json', $date);
+		Route::json('/json', $data);
 
 		$this->get('/json')
 			->assertResponseStatus(200)
@@ -19,9 +19,9 @@ class RouteJsonTest extends TestCase {
 	}
 
 	public function testResponseJsonWithArray() {
-		$date = ['key' => 'value'];
+		$data = ['key' => 'value'];
 
-		Route::json('/json', $date);
+		Route::json('/json', $data);
 
 		$this->get('/json')
 			->assertResponseStatus(200)
@@ -32,9 +32,9 @@ class RouteJsonTest extends TestCase {
 	}
 
 	public function testResponseJsonWithMiddleware() {
-		$date = collect(['key' => 'value']);
+		$data = collect(['key' => 'value']);
 
-		Route::json('/json', $date)
+		Route::json('/json', $data)
 			->middleware('abort403');
 
 		$this->get('/json')

@@ -12,6 +12,7 @@ class RouteServiceProvider extends ServiceProvider {
 	protected $macros = [
 		\Juniorb2ss\LaravelRouteExtendsMacros\Macros\Redirect::class,
 		\Juniorb2ss\LaravelRouteExtendsMacros\Macros\Json::class,
+		\Juniorb2ss\LaravelRouteExtendsMacros\Macros\View::class,
 	];
 
 	/**
