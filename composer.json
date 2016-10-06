@@ -1,0 +1,36 @@
+{
+    "name": "juniorb2ss/laravel-route-extends-macros",
+    "description": "Utils macros to laravel route.",
+    "keywords": ["laravel", "routing", "helper"],
+    "homepage": "https://github.com/juniorb2ss/laravel-route-extends-macros",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Carlos Eduardo",
+            "email": "juniorb2ss@gmail.com",
+            "homepage": "https://github.com/juniorb2ss"
+        }
+    ],
+    "require": {
+        "php": "^5.5.9 || ^7.0",
+        "illuminate/support": "5.1.* || 5.2.* || 5.3.*",
+        "illuminate/http": "5.1.* || 5.2.* || 5.3.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8 || ^5.0",
+        "orchestra/testbench": "~3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Juniorb2ss\\LaravelRouteExtendsMacros\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit tests"
+    }
+}
