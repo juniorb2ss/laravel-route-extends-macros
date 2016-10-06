@@ -21,7 +21,7 @@ class RouteServiceProvider extends ServiceProvider {
 	 */
 	public function register() {
 		foreach ($this->macros as $class) {
-			$class::register();
+			(new $class)->register();
 		}
 	}
 }

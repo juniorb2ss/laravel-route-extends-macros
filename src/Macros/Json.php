@@ -12,7 +12,7 @@ class Json implements MacroInterface {
 	 * [register description]
 	 * @return void
 	 */
-	public static function register() {
+	public function register() {
 		Route::macro('json', function ($url, $structure) {
 			return Route::any($url, Json::class . '@handle')
 				->defaults('json', compact('structure'));
