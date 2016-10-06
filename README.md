@@ -1,5 +1,5 @@
 # Laravel Macros Extends
-
+[![Laravel Versions Compatible](https://img.shields.io/badge/laravel-4%7C5-green.svg)](https://laravel.com)
 [![Build Status](https://travis-ci.org/juniorb2ss/laravel-route-extends-macros.svg)](https://travis-ci.org/juniorb2ss/laravel-route-extends-macros)
 [![Total Downloads](https://poser.pugx.org/juniorb2ss/laravel-route-extends-macros/d/total.svg)](https://packagist.org/juniorb2ss/laravel-route-extends-macros)
 [![Latest Stable Version](https://poser.pugx.org/juniorb2ss/laravel-route-extends-macros/v/stable.svg)](https://packagist.org/packages/juniorb2ss/laravel-route-extends-macros)
@@ -27,5 +27,5 @@ Juniorb2ss\LaravelRouteExtendsMacros\RouteServiceProvider::class
 See wiki.
 
 ## Credits
-- [Christopher L Bray](https://github.com/brayniverse) (Tanks for ideia)
+- [Christopher L Bray](https://github.com/brayniverse) (Thanks for ideia)
 - [All Contributors](../../contributors)
