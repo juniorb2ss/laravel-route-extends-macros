@@ -11,5 +11,8 @@ cache:
     - $HOME/.composer/cache
 
 install: travis_wait composer install --no-interaction --prefer-dist
+addons:
+  code_climate:
+    repo_token: 0a10962bbc66ee91d96b0e74a9597c2b15548d2155b7df777083e435214e24d3
 
 script: vendor/bin/phpunit --verbose
