@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests;
+
 class BasicMiddleware {
 	/**
 	 * Handle an incoming request.
