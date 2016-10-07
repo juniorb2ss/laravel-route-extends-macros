@@ -36,6 +36,7 @@ class Redirect implements MacroInterface {
 	 * @param  string  $method
 	 * @param  array  $parameters
 	 * @return \Illuminate\Http\RedirectResponse
+	 * @SuppressWarnings("unused")
 	 */
 	public function callAction($method, $parameters) {
 		return $this->handle(
