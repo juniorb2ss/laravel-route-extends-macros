@@ -1,10 +1,8 @@
 ---
 engines:
-  duplication:
-    enabled: true
-    config:
-      languages:
-      - php
+  config:
+    languages:
+    - php
   fixme:
     enabled: true
   phpmd:
@@ -14,4 +12,3 @@ ratings:
   - "**.php"
 exclude_paths:
 - tests/
-.codeclimate.yml
