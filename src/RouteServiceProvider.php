@@ -2,7 +2,8 @@
 
 namespace Juniorb2ss\LaravelRouteExtendsMacros;
 
-use Illuminate\Support\ServiceProvider as ServiceProvider;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Routing\Router;
 
 class RouteServiceProvider extends ServiceProvider {
 	/**
@@ -17,12 +18,23 @@ class RouteServiceProvider extends ServiceProvider {
 	];
 
 	/**
+	 * Define your route model bindings, pattern filters, etc.
+	 *
+	 * @return void
+	 */
+	public function boot() {
+		//
+
+		parent::boot();
+	}
+
+	/**
 	 * [register description]
 	 * @return [type] [description]
 	 */
-	public function register() {
+	public function map(Router $route) {
 		foreach ($this->macros as $class) {
-			$class::register();
+			(new $class)->register($route);
 		}
 	}
 }

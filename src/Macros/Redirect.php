@@ -12,9 +12,9 @@ class Redirect implements MacroInterface {
 	 * [register description]
 	 * @return void
 	 */
-	public static function register() {
-		Route::macro('redirect', function ($url, $destination, $status = 301) {
-			return Route::any($url, Redirect::class . '@handle')
+	public function register($route) {
+		$route->macro('redirect', function ($url, $destination, $status = 301) use ($route) {
+			return $route->any($url, Redirect::class . '@handle')
 				->defaults('redirection', compact('destination', 'status'));
 		});
 	}

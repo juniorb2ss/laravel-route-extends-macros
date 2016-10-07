@@ -12,10 +12,10 @@ class Download implements MacroInterface {
 	 * [register description]
 	 * @return void
 	 */
-	public static function register() {
-		Route::macro('download', function ($url, $file, $name = null,
-			array $headers = [], $disposition = 'attachment') {
-			return Route::any($url, Download::class . '@handle')
+	public function register($route) {
+		$route->macro('download', function ($url, $file, $name = null,
+			array $headers = [], $disposition = 'attachment') use ($route) {
+			return $route->any($url, Download::class . '@handle')
 				->defaults('download', compact('file', 'name', 'headers', 'disposition'));
 		});
 	}

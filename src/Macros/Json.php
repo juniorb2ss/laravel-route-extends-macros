@@ -12,9 +12,9 @@ class Json implements MacroInterface {
 	 * [register description]
 	 * @return void
 	 */
-	public static function register() {
-		Route::macro('json', function ($url, $structure) {
-			return Route::any($url, Json::class . '@handle')
+	public function register($route) {
+		$route->macro('json', function ($url, $structure) use ($route) {
+			return $route->any($url, Json::class . '@handle')
 				->defaults('json', compact('structure'));
 		});
 	}
