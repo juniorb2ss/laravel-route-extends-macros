@@ -34,8 +34,8 @@ class RouteServiceProvider extends ServiceProvider {
 	 * @return [type] [description]
 	 */
 	public function map(Router $route) {
-		foreach ($this->macros as $class) {
-			(new $class)->register($route);
+		foreach ($this->macros as $macro) {
+			(new $macro)->register($route);
 		}
 	}
 }
