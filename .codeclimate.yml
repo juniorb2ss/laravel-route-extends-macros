@@ -1,14 +1,6 @@
----
-engines:
-  config:
-    languages:
-    - php
-  fixme:
-    enabled: true
-  phpmd:
-    enabled: true
-ratings:
-  paths:
-  - "**.php"
+languages:
+   PHP: true
 exclude_paths:
-- tests/
+- "tests/*"
+- "vendor/*"
+- "build/*"
