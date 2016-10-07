@@ -12,7 +12,7 @@ class View implements MacroInterface {
 	 * [register description]
 	 * @return void
 	 */
-	public function register() {
+	public static function register() {
 		Route::macro('view', function ($url, $view, $data = []) {
 			return Route::any($url, View::class . '@handle')
 				->defaults('view', compact('view', 'data'));

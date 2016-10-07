@@ -3,5 +3,5 @@
 namespace Juniorb2ss\LaravelRouteExtendsMacros\Contracts;
 
 interface MacroInterface {
-	public function register();
+	public static function register();
 }
