@@ -13,6 +13,7 @@ class RouteServiceProvider extends ServiceProvider {
 		\Juniorb2ss\LaravelRouteExtendsMacros\Macros\Redirect::class,
 		\Juniorb2ss\LaravelRouteExtendsMacros\Macros\Json::class,
 		\Juniorb2ss\LaravelRouteExtendsMacros\Macros\View::class,
+		\Juniorb2ss\LaravelRouteExtendsMacros\Macros\Download::class,
 	];
 
 	/**

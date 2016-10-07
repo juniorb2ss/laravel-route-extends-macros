@@ -11,11 +11,14 @@ class ViewControllerTest extends TestCase {
 	}
 
 	public function testViewWithDataRendered() {
-		Route::view('/user', 'user', [
+		$data = [
 			'name' => 'Test',
-		]);
+		];
+
+		Route::view('/user', 'user', $data);
 
 		$this->get('/user')
+			->assertViewHasAll($data)
 			->see('Test');
 	}
 
