@@ -7,7 +7,7 @@ class ViewControllerTest extends TestCase {
 		$this->route->view('/contact', 'contact');
 
 		$this->get('/contact')
-			->see('Contact us');
+			->see('Contact Form');
 	}
 
 	public function testViewWithDataRendered() {
@@ -23,9 +23,8 @@ class ViewControllerTest extends TestCase {
 	}
 
 	public function testViewAbort403() {
-		$this->route->view('/user', 'user', [
-			'name' => 'Test',
-		])->middleware('abort403');
+		$this->route->view('/user', 'user', [])
+			->middleware('abort403');
 
 		$this->get('/user')
 			->assertResponseStatus(403);

@@ -5,7 +5,6 @@ namespace Tests;
 class RedirectTest extends TestCase {
 	public function testRedirectUses301StatusByDefault() {
 		$this->route->redirect('/contact_us', 'contact');
-		$this->route->get('/contact', function () {});
 
 		$this->get('/contact_us')
 			->assertResponseStatus(301)
@@ -14,7 +13,6 @@ class RedirectTest extends TestCase {
 
 	public function testCanOverrideDefaultRedirectStatus() {
 		$this->route->redirect('/contact_us', 'contact', 302);
-		$this->route->get('/contact', function () {});
 
 		$this->get('/contact_us')
 			->assertResponseStatus(302)
@@ -24,8 +22,6 @@ class RedirectTest extends TestCase {
 	public function testRedirectUses403StatusWithMiddleware() {
 		$this->route->redirect('/contact_us', 'contact')
 			->middleware('abort403');
-
-		$this->route->get('/contact', function () {});
 
 		$this->get('/contact_us')
 			->assertResponseStatus(403);
