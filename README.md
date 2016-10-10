@@ -25,6 +25,11 @@ Then add the following to your providers array in `config/app.php`.
 Juniorb2ss\LaravelRouteExtendsMacros\RouteServiceProvider::class
 ```
 
+Testing
+```bash
+$ composer test
+```
+
 ## Usage
 
 See wiki.
