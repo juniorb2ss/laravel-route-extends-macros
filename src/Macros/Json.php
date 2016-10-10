@@ -15,7 +15,7 @@ class Json implements MacroInterface {
 	public function register(Router $route) {
 		$route->macro('json', function ($url, $data, $status = 200,
 			array $headers = [], $options = 0) use ($route) {
-			return $route->any($url, Json::class . '@handle')
+			return $route->any($url, '\Juniorb2ss\LaravelRouteExtendsMacros\Macros\Json@handle')
 				->defaults('json', compact('data', 'status', 'headers', 'options'));
 		});
 	}

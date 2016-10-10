@@ -14,7 +14,7 @@ class View implements MacroInterface {
 	 */
 	public function register(Router $route) {
 		$route->macro('view', function ($url, $view, $data = [], array $mergeData = []) use ($route) {
-			return $route->any($url, View::class . '@handle')
+			return $route->any($url, '\Juniorb2ss\LaravelRouteExtendsMacros\Macros\View@handle')
 				->defaults('view', compact('view', 'data', 'mergeData'));
 		});
 	}

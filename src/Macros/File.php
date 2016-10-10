@@ -14,7 +14,7 @@ class File implements MacroInterface {
 	 */
 	public function register(Router $route) {
 		$route->macro('file', function ($url, $file, array $headers = []) use ($route) {
-			return $route->any($url, File::class . '@handle')
+			return $route->any($url, '\Juniorb2ss\LaravelRouteExtendsMacros\Macros\File@handle')
 				->defaults('file', compact('file', 'headers'));
 		});
 	}

@@ -15,7 +15,7 @@ class Download implements MacroInterface {
 	public function register(Router $route) {
 		$route->macro('download', function ($url, $file, $name = null,
 			array $headers = [], $disposition = 'attachment') use ($route) {
-			return $route->any($url, Download::class . '@handle')
+			return $route->any($url, '\Juniorb2ss\LaravelRouteExtendsMacros\Macros\Download@handle')
 				->defaults('download', compact('file', 'name', 'headers', 'disposition'));
 		});
 	}
