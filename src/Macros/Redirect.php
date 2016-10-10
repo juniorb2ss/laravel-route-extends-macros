@@ -13,7 +13,7 @@ class Redirect implements MacroInterface {
 	 * @return void
 	 */
 	public function register(Router $route) {
-		$route->macro('redirect', function ($url, $to, $status = 302,
+		$route->macro('redirect', function($url, $to, $status = 302,
 			array $headers = [], $secure = null) use ($route) {
 			return $route->any($url, '\Juniorb2ss\LaravelRouteExtendsMacros\Macros\Redirect@handle')
 				->defaults('redirection', compact('to', 'status', 'headers', 'secure'));
