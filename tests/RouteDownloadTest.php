@@ -7,23 +7,17 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class RouteDownloadTest extends TestCase {
 	public function testDownloadFile() {
-		$filePath = __DIR__ . '/stubs/file/teste.ext';
+		$filePath = $this->fileForTesting();
 
 		$this->route->download('/download', $filePath);
 
 		$response = $this->get('/download')
 			->seePageIs('/download')
-			->assertResponseOk();
-
-		$this->assertInstanceOf(BinaryFileResponse::class, $response->response);
-		$this->assertEquals($filePath, $response->response->getFile()->getRealPath());
-		$this->assertEquals('attachment; filename="teste.ext"',
-			$response->response->headers->get('content-disposition')
-		);
+			->seeFileInResponse($filePath, 'teste.ext');
 	}
 
 	public function testDownloadFileWithMiddleware() {
-		$filePath = __DIR__ . '/stubs/file/teste.ext';
+		$filePath = $this->fileForTesting();
 
 		$this->route->download('/download', $filePath)
 			->middleware('abort403');
@@ -33,7 +27,7 @@ class RouteDownloadTest extends TestCase {
 	}
 
 	public function testDownloadFileWithCallback() {
-		$filePath = __DIR__ . '/stubs/file/teste.ext';
+		$filePath = $this->fileForTesting();
 
 		$this->route->download('/download', function () use ($filePath) {
 			return $filePath;
@@ -41,48 +35,42 @@ class RouteDownloadTest extends TestCase {
 
 		$response = $this->get('/download')
 			->seePageIs('/download')
-			->assertResponseOk();
-
-		$this->assertInstanceOf(BinaryFileResponse::class, $response->response);
-		$this->assertEquals($filePath, $response->response->getFile()->getRealPath());
-		$this->assertEquals('attachment; filename="teste.ext"',
-			$response->response->headers->get('content-disposition')
-		);
+			->seeFileInResponse($filePath, 'teste.ext');
 	}
 
 	public function testDownloadFileWithCustomHeaders() {
-		$filePath = __DIR__ . '/stubs/file/teste.ext';
+		$filePath = $this->fileForTesting();
 
-		$this->route->download('/download', $filePath, null, ['x-mod' => 'teste']);
+		$this->route->download('/download', $filePath, null, ['x-mod' => 'test']);
 
-		$response = $this->get('/download')
+		$this->get('/download')
 			->seePageIs('/download')
-			->assertResponseOk();
-
-		$this->assertInstanceOf(BinaryFileResponse::class, $response->response);
-		$this->assertEquals($filePath, $response->response->getFile()->getRealPath());
-		$this->assertEquals('attachment; filename="teste.ext"',
-			$response->response->headers->get('content-disposition')
-		);
-
-		$this->assertEquals('teste',
-			$response->response->headers->get('x-mod')
-		);
+			->seeFileInResponse($filePath, 'teste.ext')
+			->seeHeader('x-mod', 'test');
 	}
 
 	public function testDownloadFileWithCustomName() {
-		$filePath = __DIR__ . '/stubs/file/teste.ext';
+		$filePath = $this->fileForTesting();
 
 		$this->route->download('/download', $filePath, 'users.json');
 
 		$response = $this->get('/download')
 			->seePageIs('/download')
-			->assertResponseOk();
+			->seeFileInResponse($filePath, 'users.json');
+	}
 
-		$this->assertInstanceOf(BinaryFileResponse::class, $response->response);
-		$this->assertEquals($filePath, $response->response->getFile()->getRealPath());
-		$this->assertEquals('attachment; filename="users.json"',
-			$response->response->headers->get('content-disposition')
+	protected function fileForTesting() {
+		return __DIR__ . '/stubs/file/teste.ext';
+	}
+
+	protected function seeFileInResponse($filePath, $fileName) {
+		$this->assertResponseOk();
+		$this->assertInstanceOf(BinaryFileResponse::class, $this->response);
+		$this->assertEquals($filePath, $this->response->getFile()->getRealPath());
+		$this->assertEquals("attachment; filename=\"{$fileName}\"",
+			$this->response->headers->get('content-disposition')
 		);
+
+		return $this;
 	}
 }
