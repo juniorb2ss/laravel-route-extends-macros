@@ -8,7 +8,7 @@ class RouteFileTest extends TestCase {
 	public function testFileSeeContent() {
 		$filePath = __DIR__ . '/stubs/file/file.txt';
 
-		Route::file('/file', $filePath);
+		$this->route->file('/file', $filePath);
 
 		$response = $this->get('/file')
 			->seePageIs('/file')
@@ -18,7 +18,7 @@ class RouteFileTest extends TestCase {
 	public function testFileSeeContentWithCallbackFileName() {
 		$filePath = __DIR__ . '/stubs/file/file.txt';
 
-		Route::file('/file', function () use ($filePath) {
+		$this->route->file('/file', function () use ($filePath) {
 			return $filePath;
 		});
 
@@ -30,7 +30,7 @@ class RouteFileTest extends TestCase {
 	public function testFileSeeContentWithMiddleware() {
 		$filePath = __DIR__ . '/stubs/file/file.txt';
 
-		Route::file('/file', $filePath)
+		$this->route->file('/file', $filePath)
 			->middleware('abort403');
 
 		$response = $this->get('/file')

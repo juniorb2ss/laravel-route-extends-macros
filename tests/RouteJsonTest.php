@@ -8,7 +8,7 @@ class RouteJsonTest extends TestCase {
 	public function testResponseJsonWithCollection() {
 		$data = collect(['key' => 'value']);
 
-		Route::json('/json', $data);
+		$this->route->json('/json', $data);
 
 		$this->get('/json')
 			->assertResponseStatus(200)
@@ -21,7 +21,7 @@ class RouteJsonTest extends TestCase {
 	public function testResponseJsonWithArray() {
 		$data = ['key' => 'value'];
 
-		Route::json('/json', $data);
+		$this->route->json('/json', $data);
 
 		$this->get('/json')
 			->assertResponseStatus(200)
@@ -34,7 +34,7 @@ class RouteJsonTest extends TestCase {
 	public function testResponseJsonWithMiddleware() {
 		$data = collect(['key' => 'value']);
 
-		Route::json('/json', $data)
+		$this->route->json('/json', $data)
 			->middleware('abort403');
 
 		$this->get('/json')

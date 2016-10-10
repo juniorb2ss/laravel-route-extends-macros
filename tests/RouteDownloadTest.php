@@ -9,7 +9,7 @@ class RouteDownloadTest extends TestCase {
 	public function testDownloadFile() {
 		$filePath = __DIR__ . '/stubs/file/teste.ext';
 
-		Route::download('/download', $filePath);
+		$this->route->download('/download', $filePath);
 
 		$response = $this->get('/download')
 			->seePageIs('/download')
@@ -25,7 +25,7 @@ class RouteDownloadTest extends TestCase {
 	public function testDownloadFileWithMiddleware() {
 		$filePath = __DIR__ . '/stubs/file/teste.ext';
 
-		Route::download('/download', $filePath)
+		$this->route->download('/download', $filePath)
 			->middleware('abort403');
 
 		$response = $this->get('/download')
@@ -35,7 +35,7 @@ class RouteDownloadTest extends TestCase {
 	public function testDownloadFileWithCallback() {
 		$filePath = __DIR__ . '/stubs/file/teste.ext';
 
-		Route::download('/download', function () use ($filePath) {
+		$this->route->download('/download', function () use ($filePath) {
 			return $filePath;
 		});
 
@@ -53,7 +53,7 @@ class RouteDownloadTest extends TestCase {
 	public function testDownloadFileWithCustomHeaders() {
 		$filePath = __DIR__ . '/stubs/file/teste.ext';
 
-		Route::download('/download', $filePath, null, ['x-mod' => 'teste']);
+		$this->route->download('/download', $filePath, null, ['x-mod' => 'teste']);
 
 		$response = $this->get('/download')
 			->seePageIs('/download')
@@ -73,7 +73,7 @@ class RouteDownloadTest extends TestCase {
 	public function testDownloadFileWithCustomName() {
 		$filePath = __DIR__ . '/stubs/file/teste.ext';
 
-		Route::download('/download', $filePath, 'users.json');
+		$this->route->download('/download', $filePath, 'users.json');
 
 		$response = $this->get('/download')
 			->seePageIs('/download')

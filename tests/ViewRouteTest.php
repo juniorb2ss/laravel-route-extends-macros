@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 class ViewControllerTest extends TestCase {
 	public function testViewRendered() {
-		Route::view('/contact', 'contact');
+		$this->route->view('/contact', 'contact');
 
 		$this->get('/contact')
 			->see('Contact us');
@@ -15,7 +15,7 @@ class ViewControllerTest extends TestCase {
 			'name' => 'Test',
 		];
 
-		Route::view('/user', 'user', $data);
+		$this->route->view('/user', 'user', $data);
 
 		$this->get('/user')
 			->assertViewHasAll($data)
@@ -23,7 +23,7 @@ class ViewControllerTest extends TestCase {
 	}
 
 	public function testViewAbort403() {
-		Route::view('/user', 'user', [
+		$this->route->view('/user', 'user', [
 			'name' => 'Test',
 		])->middleware('abort403');
 
