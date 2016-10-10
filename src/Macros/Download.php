@@ -1,7 +1,7 @@
 <?php
 namespace Juniorb2ss\LaravelRouteExtendsMacros\Macros;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Router;
 use Juniorb2ss\LaravelRouteExtendsMacros\Contracts\MacroInterface;
 
 /**
@@ -12,7 +12,7 @@ class Download implements MacroInterface {
 	 * [register description]
 	 * @return void
 	 */
-	public function register($route) {
+	public function register(Router $route) {
 		$route->macro('download', function ($url, $file, $name = null,
 			array $headers = [], $disposition = 'attachment') use ($route) {
 			return $route->any($url, Download::class . '@handle')
@@ -21,10 +21,13 @@ class Download implements MacroInterface {
 	}
 
 	/**
-	 * Handle the redirect.
+	 * Create a new file download response.
 	 *
-	 * @param  string  $destination
-	 * @return \Illuminate\Http\RedirectResponse
+	 * @param  \SplFileInfo|string  $file
+	 * @param  string  $name
+	 * @param  array  $headers
+	 * @param  string|null  $disposition
+	 * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
 	 */
 	public function handle($file, $name = null,
 		array $headers = [], $disposition = 'attachment') {
@@ -41,11 +44,6 @@ class Download implements MacroInterface {
 	 * @SuppressWarnings("unused")
 	 */
 	public function callAction($method, $parameters) {
-		return $this->handle(
-			$parameters['download']['file'],
-			$parameters['download']['name'],
-			$parameters['download']['headers'],
-			$parameters['download']['disposition']
-		);
+		return call_user_func_array([$this, $method], $parameters['download']);
 	}
 }

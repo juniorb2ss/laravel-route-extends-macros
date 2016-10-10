@@ -1,7 +1,7 @@
 <?php
 namespace Juniorb2ss\LaravelRouteExtendsMacros\Macros;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Router;
 use Juniorb2ss\LaravelRouteExtendsMacros\Contracts\MacroInterface;
 
 /**
@@ -12,22 +12,25 @@ class Redirect implements MacroInterface {
 	 * [register description]
 	 * @return void
 	 */
-	public function register($route) {
-		$route->macro('redirect', function ($url, $destination, $status = 301) use ($route) {
+	public function register(Router $route) {
+		$route->macro('redirect', function ($url, $to, $status = 302,
+			array $headers = [], $secure = null) use ($route) {
 			return $route->any($url, Redirect::class . '@handle')
-				->defaults('redirection', compact('destination', 'status'));
+				->defaults('redirection', compact('to', 'status', 'headers', 'secure'));
 		});
 	}
 
 	/**
-	 * Handle the redirect.
+	 * Get an instance of the redirector.
 	 *
-	 * @param  string  $destination
-	 * @param  int  $status
-	 * @return \Illuminate\Http\RedirectResponse
+	 * @param  string|null  $to
+	 * @param  int     $status
+	 * @param  array   $headers
+	 * @param  bool    $secure
+	 * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
 	 */
-	public function handle($destination, $status = 301) {
-		return redirect($destination, $status);
+	public function handle($to = null, $status = 302, $headers = [], $secure = null) {
+		return redirect($to, $status, $headers, $secure);
 	}
 
 	/**
@@ -39,9 +42,6 @@ class Redirect implements MacroInterface {
 	 * @SuppressWarnings("unused")
 	 */
 	public function callAction($method, $parameters) {
-		return $this->handle(
-			$parameters['redirection']['destination'],
-			$parameters['redirection']['status']
-		);
+		return call_user_func_array([$this, $method], $parameters['redirection']);
 	}
 }

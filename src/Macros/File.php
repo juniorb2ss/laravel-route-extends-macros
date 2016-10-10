@@ -1,7 +1,7 @@
 <?php
 namespace Juniorb2ss\LaravelRouteExtendsMacros\Macros;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Router;
 use Juniorb2ss\LaravelRouteExtendsMacros\Contracts\MacroInterface;
 
 /**
@@ -12,7 +12,7 @@ class File implements MacroInterface {
 	 * [register description]
 	 * @return void
 	 */
-	public function register($route) {
+	public function register(Router $route) {
 		$route->macro('file', function ($url, $file, array $headers = []) use ($route) {
 			return $route->any($url, File::class . '@handle')
 				->defaults('file', compact('file', 'headers'));
@@ -20,10 +20,11 @@ class File implements MacroInterface {
 	}
 
 	/**
-	 * Handle the redirect.
+	 * Return the raw contents of a binary file.
 	 *
-	 * @param  string  $destination
-	 * @return \Illuminate\Http\RedirectResponse
+	 * @param  \SplFileInfo|string  $file
+	 * @param  array  $headers
+	 * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
 	 */
 	public function handle($file, array $headers = []) {
 		$file = (is_callable($file) ? $file() : $file);
@@ -39,9 +40,6 @@ class File implements MacroInterface {
 	 * @SuppressWarnings("unused")
 	 */
 	public function callAction($method, $parameters) {
-		return $this->handle(
-			$parameters['file']['file'],
-			$parameters['file']['headers']
-		);
+		return call_user_func_array([$this, $method], $parameters['file']);
 	}
 }

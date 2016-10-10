@@ -1,7 +1,7 @@
 <?php
 namespace Juniorb2ss\LaravelRouteExtendsMacros\Macros;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Router;
 use Juniorb2ss\LaravelRouteExtendsMacros\Contracts\MacroInterface;
 
 /**
@@ -12,21 +12,23 @@ class View implements MacroInterface {
 	 * [register description]
 	 * @return void
 	 */
-	public function register($route) {
-		$route->macro('view', function ($url, $view, $data = []) use ($route) {
+	public function register(Router $route) {
+		$route->macro('view', function ($url, $view, $data = [], array $mergeData = []) use ($route) {
 			return $route->any($url, View::class . '@handle')
-				->defaults('view', compact('view', 'data'));
+				->defaults('view', compact('view', 'data', 'mergeData'));
 		});
 	}
 
 	/**
-	 * Handle the redirect.
+	 * Get the evaluated view contents for the given view.
 	 *
-	 * @param  string  $destination
-	 * @return \Illuminate\Http\RedirectResponse
+	 * @param  string  $view
+	 * @param  array   $data
+	 * @param  array   $mergeData
+	 * @return \Illuminate\Contracts\View\View
 	 */
-	public function handle($view, $data) {
-		return view($view, $data);
+	public function handle($view, $data, array $mergeData = []) {
+		return view($view, $data, $mergeData);
 	}
 
 	/**
@@ -38,9 +40,6 @@ class View implements MacroInterface {
 	 * @SuppressWarnings("unused")
 	 */
 	public function callAction($method, $parameters) {
-		return $this->handle(
-			$parameters['view']['view'],
-			$parameters['view']['data']
-		);
+		return call_user_func_array([$this, $method], $parameters['view']);
 	}
 }
